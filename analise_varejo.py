@@ -108,3 +108,43 @@ for reg in registros:
     registros_limpos.append(reg_tratado)
 
 
+# ==============================================================================
+# SPRINT 4: ESTATÍSTICA DESCRITIVA
+# Lógica: Aplicação das funções matemáticas nativas sobre a coluna de número de filhos (CL_FHL)
+# ==============================================================================
+valores_filhos = [r['CL_FHL'] for r in registros_limpos]
+valores_filhos.sort()
+contagem = len(valores_filhos)
+
+if contagem > 0:
+    minimo = valores_filhos[0]
+    maximo = valores_filhos[-1]
+    soma = sum(valores_filhos)
+    media = soma / contagem
+    
+    # Algoritmo de cálculo de percentis para extração exata dos quartis
+    def calcular_percentil(lista, percentil):
+        idx = (len(lista) - 1) * percentil
+        if idx.is_integer():
+            return lista[int(idx)]
+        else:
+            baixo = int(idx)
+            alto = baixo + 1
+            return lista[baixo] + (lista[alto] - lista[baixo]) * (idx - baixo)
+            
+    q25 = calcular_percentil(valores_filhos, 0.25)
+    mediana = calcular_percentil(valores_filhos, 0.50)
+    q75 = calcular_percentil(valores_filhos, 0.75)
+    
+    # Cálculo do desvio padrão populacional/amostral nativo
+    variancia = sum((x - media) ** 2 for x in valores_filhos) / contagem
+    desvio_padrao = variancia ** 0.5
+    
+    # Cálculo do indicador modal por dicionário de frequências
+    frequencias = {}
+    for v in valores_filhos:
+        frequencias[v] = frequencias.get(v, 0) + 1
+    moda = max(frequencias, key=frequencias.get)
+else:
+    minimo = maximo = media = mediana = q25 = q75 = desvio_padrao = moda = 0
+
