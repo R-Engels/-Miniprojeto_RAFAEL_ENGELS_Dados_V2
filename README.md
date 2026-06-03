@@ -1,5 +1,5 @@
 # Análise Exploratória de Dados - Base Varejo
-**Aluno:** Rafael Engels | **Turma:** T2
+**Aluno:** Rafael Engels | **Turma:** DADOS V2
 
 Este projeto realiza de forma nativa e estruturada a extração, limpeza de strings inválidas, tratamento de duplicatas, análise estatística descritiva e plotagem de dados da base de varejo utilizando Python.
 
