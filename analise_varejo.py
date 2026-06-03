@@ -196,6 +196,18 @@ for cat, total in sorted(agrup_cat.items(), key=lambda item: item[1], reverse=Tr
     print(f"  Categoria: {cat} | Itens Vendidos: {total}")
 
 
-
+# ==============================================================================
+# SPRINT 6: VERSIONAMENTO E EXPORTAÇÃO
+# Lógica: Criação do dataset limpo e renderização definitiva dos assets gráficos para upload
+# ==============================================================================
+colunas_saida = ['DATA', 'CO_ID', 'CL_ID', 'CL_GENERO', 'CL_EC', 'CL_FHL', 'CL_SEG', 'PR_ID', 'PR_CAT', 'PR_NOME']
+with open('df_limpo.csv', mode='w', encoding='utf-8', newline='') as f_out:
+    escritor = csv.DictWriter(f_out, fieldnames=colunas_saida, delimiter=';')
+    escritor.writeheader()
+    for r in registros_limpos:
+        r_formatado = r.copy()
+        if isinstance(r_formatado['DATA'], datetime):
+            r_formatado['DATA'] = r_formatado['DATA'].strftime('%d/%m/%Y')
+        escritor.writerow(r_formatado)
 
 
