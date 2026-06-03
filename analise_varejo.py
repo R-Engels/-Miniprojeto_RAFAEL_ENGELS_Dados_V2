@@ -211,3 +211,29 @@ with open('df_limpo.csv', mode='w', encoding='utf-8', newline='') as f_out:
         escritor.writerow(r_formatado)
 
 
+# ==============================================================================
+# GRAFICOS
+# Renderização dos relatórios gráficos
+# ==============================================================================
+plt.figure(figsize=(8, 5))
+generos = list(agrup_genero.keys())
+valores_gen = list(agrup_genero.values())
+plt.bar(generos, valores_gen, color=['#3498db', '#e74c3c', '#95a5a6'])
+plt.title('Total de Compras por Gênero')
+plt.xlabel('Gênero')
+plt.ylabel('Quantidade de Compras')
+plt.savefig('1._compras_por_genero.png')
+plt.close()
+
+plt.figure(figsize=(8, 8))
+categorias_ordenadas = sorted(agrup_cat.items(), key=lambda x: x[1], reverse=True)[:5]
+cats = [c[0] for c in categorias_ordenadas]
+valores_cat = [c[1] for c in categorias_ordenadas]
+
+plt.pie(valores_cat, labels=cats, autopct='%1.1f%%', startangle=140, colors=['#2ecc71', '#3498db', '#9b59b6', '#f1c40f', '#e67e22'])
+plt.title('Participação - Top 5 Categorias Mais Vendidas')
+plt.tight_layout()
+plt.savefig('2._top_categorias.png')
+plt.close()
+
+print("\n[INFO] Gráficos exportados com sucesso como '1._compras_por_genero.png' e '2._top_categorias.png'!")
