@@ -148,3 +148,54 @@ if contagem > 0:
 else:
     minimo = maximo = media = mediana = q25 = q75 = desvio_padrao = moda = 0
 
+
+# ==============================================================================
+# SPRINT 5: RELATÓRIO E DOCUMENTAÇÃO
+# Lógica: Exibição dos contadores, tabelas de agrupamentos organizadas e saídas no terminal
+# ==============================================================================
+print("--- INFORMAÇÕES INICIAIS DA BASE ---")
+print(f"Número de registros: {total_registros_inicial}")
+print(f"Colunas identificadas: {colunas}\n")
+
+print("--- IDENTIFICAÇÃO DE PROBLEMAS INICIAIS ---")
+print("Valores nulos detectados por coluna:")
+for col, qtd in nulos_por_coluna.items():
+    print(f"  - {col}: {qtd}")
+print(f"Total de linhas duplicadas idênticas: {duplicados_contagem}\n")
+
+print("--- ESTATÍSTICA DESCRITIVA (NÚMERO DE FILHOS - CL_FHL) ---")
+print(f"Contagem: {contagem}")
+print(f"Média: {media:.2f}")
+print(f"Mediana: {mediana}")
+print(f"Moda: {moda}")
+print(f"Desvio Padrão: {desvio_padrao:.2f}")
+print(f"Mínimo: {minimo}")
+print(f"Quartil 25%: {q25}")
+print(f"Quartil 50% (Mediana): {mediana}")
+print(f"Quartil 75%: {q75}")
+print(f"Máximo: {maximo}\n")
+
+# Agrupamento 1: Compras aggregadas por Gênero
+agrup_genero = {}
+for r in registros_limpos:
+    g = r['CL_GENERO']
+    agrup_genero[g] = agrup_genero.get(g, 0) + 1
+
+print("--- AGRUPAMENTO 1: Total de Compras por Gênero ---")
+for gen, total in agrup_genero.items():
+    print(f"  Gênero: {gen} | Total de Compras: {total}")
+
+# Agrupamento 2: Itens vendidos ordenados por Categoria de Produto
+agrup_cat = {}
+for r in registros_limpos:
+    c = r['PR_CAT']
+    agrup_cat[c] = agrup_cat.get(c, 0) + 1
+
+print("\n--- AGRUPAMENTO 2: Total de Vendas por Categoria ---")
+for cat, total in sorted(agrup_cat.items(), key=lambda item: item[1], reverse=True):
+    print(f"  Categoria: {cat} | Itens Vendidos: {total}")
+
+
+
+
+
